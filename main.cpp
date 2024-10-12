@@ -111,21 +111,40 @@ public:
         if (!head || position < 0) return; // Empty list
 
         Node* temp = head;
+        for (int i = 0; i < position && temp; i++) {
+            temp = temp->next;
+        }
 
+        if (!temp) return;   // if temp reaches past the list
 
+        // deleting the head
+        if (temp->prev) {
+            temp->prev->next = temp->next;
+        }
+        else {
+            head = temp->next;
+        }
+
+        // deleting the tail
+        if (temp->next) {
+            temp->next->prev = temp->prev;
+        }
+        else {
+            head = temp->prev;
+        }
+
+        delete temp; 
 
     }
 
     // Function to delete head node
-    void pop_font() {
-
-        
+    void pop_front() {
+        delete_val(head->data);        
     }
 
-    // function to delete tail node
+    // Function to delete tail node
     void pop_back() {
-
-
+        delete_val(tail->data);
     }
 
 
@@ -164,19 +183,32 @@ int main() {
 
     DoublyLinkedList list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+    int userPosition;
 
     for (int i = 0; i < size; ++i)
         list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
+
     cout << "List forward: ";
     list.print();
 
     cout << "List backward: ";
     list.print_reverse();
 
-    cout << "Deleting list, then trying to print.\n";
-    list.~DoublyLinkedList();
-    cout << "List forward: ";
+    // Print after pop functions
+    list.pop_front();
+    cout << "List after pop front: ";
     list.print();
+
+    list.pop_back();
+    cout << "List after pop back: ";
+    list.print();
+
+    // Print after deleting a position
+    cout << "Which position to delete? ";
+    cin >> userPosition;
+    list.delete_pos(userPosition);
+    cout << "List after position #" << userPosition << " was deleted: ";
+    list.print();   
 
     return 0;
 }
