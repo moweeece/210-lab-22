@@ -81,7 +81,8 @@ public:
         temp->next = newNode;
     }
 
-    void delete_node(int value) {
+    // revised name to delete_val, functionality unchanged
+    void delete_val(int value) {
         if (!head) return; // Empty list
 
         Node* temp = head;
@@ -104,6 +105,29 @@ public:
 
         delete temp;
     }
+
+    // delete by position
+    void delete_pos(int position) {
+        if (!head || position < 0) return; // Empty list
+
+        Node* temp = head;
+
+
+
+    }
+
+    // Function to delete head node
+    void pop_font() {
+
+        
+    }
+
+    // function to delete tail node
+    void pop_back() {
+
+
+    }
+
 
     void print() {
         Node* current = head;
